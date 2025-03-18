@@ -1,4 +1,5 @@
 
+
 import "./App.css";
 import FileExplorer from "./components/FileExplorerBody/FileExplorer";
 
@@ -10,6 +11,7 @@ function App() {
       <h1 className="text-2xl font-bold mb-4 text-white">Semantic File Explorer</h1>
       <FileExplorer />
     </main>
+
   );
 }
 
