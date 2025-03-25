@@ -2,7 +2,9 @@
 
 import "./App.css";
 import FileExplorer from "./components/FileExplorerBody/FileExplorer";
+
 import MainLayout from "./components/layout/MainLayout";
+
 
 function App() {
 
@@ -12,6 +14,7 @@ function App() {
       <MainLayout>
         <FileExplorer />
       </MainLayout>
+
     </main>
 
   );

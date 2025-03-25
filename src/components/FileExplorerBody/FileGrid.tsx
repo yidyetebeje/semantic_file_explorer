@@ -6,15 +6,18 @@ import FileList from './FileList';
 interface FileGridProps {
   files: FileItemType[];
   viewMode: ViewMode;
+  fileSize: number;  
+  gapSize: number;   
   onFileSelect?: (file: FileItemType) => void;
 }
 
-const FileGrid = ({ files, viewMode, onFileSelect }: FileGridProps) => {
+const FileGrid = ({ files, viewMode, fileSize, gapSize, onFileSelect }: FileGridProps) => {
   if (viewMode === 'list') {
-    return <FileList files={files} onFileSelect={onFileSelect} />;
+    return <FileList files={files} onFileSelect={onFileSelect} fileSize={fileSize} gapSize={gapSize} />;
   }
 
   return (
+
     <div className="w-full">
       <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-4 p-6 rounded-lg ">
         {files.map((file, index) =>
@@ -34,6 +37,7 @@ const FileGrid = ({ files, viewMode, onFileSelect }: FileGridProps) => {
           )
         )}
       </div>
+
     </div>
   );
 };

@@ -3,20 +3,22 @@ import FileIcon from './FileIcon';
 interface FileItemProps {
   name: string;
   type: string;
+  size: number; 
 }
 
-const FileItem = ({ name, type }: FileItemProps) => {
+const FileItem = ({ name, type, size }: FileItemProps) => {
   return (
     <div className="relative cursor-pointer group">
-      <div className="mb-8 flex flex-col items-center justify-center p-3 rounded-md group-hover:bg-white/10 transition-all">
+      <div className="flex flex-col items-center justify-center p-1 rounded-md group-hover:bg-white/10 transition-all">
         <div className="relative">
-          <FileIcon type={type} size={64} />
+          <FileIcon type={type} size={size} /> {/* Use size prop for icon size */}
           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 rounded-lg transition-colors" />
         </div>
-      </div>
-      
-      <div className="absolute -bottom-8 left-0 right-0 px-2 py-1 bg-transparent group-hover:bg-blue-400 rounded-md">
-        <p className="text-sm text-gray-300 group-hover:text-white group-hover:font-bold text-center truncate">
+        {/* File Name */}
+        <p
+          className="text-sm text-gray-300 group-hover:text-white group-hover:font-bold text-center truncate mt-1"
+          style={{ fontSize: `${size * 0.2}px` }} // Dynamic font size
+        >
           {name}
         </p>
       </div>
