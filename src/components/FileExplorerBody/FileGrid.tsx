@@ -16,7 +16,7 @@ const FileGrid = ({ files, viewMode, onFileSelect }: FileGridProps) => {
 
   return (
     <div className="w-full">
-      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-4 p-6 rounded-lg bg-gradient-to-br from-gray-900 via-purple-900/30 to-gray-900">
+      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-4 p-6 rounded-lg ">
         {files.map((file, index) =>
           file.type === "folder" ? (
             <div key={`${file.name}-${index}`} onClick={() => onFileSelect?.(file)}>

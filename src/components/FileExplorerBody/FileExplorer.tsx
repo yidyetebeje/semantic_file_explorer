@@ -42,7 +42,7 @@ const FileExplorer = () => {
   ];
 
   return (
-    <div className="min-h-screen w-full p-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-950/30 to-gray-900 w-full">
       <div className="flex justify-end mb-4 gap-2">
         <button
           onClick={() => setViewMode('grid')}
