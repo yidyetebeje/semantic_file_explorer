@@ -53,7 +53,22 @@ const FileExplorer = () => {
   };
 
   return (
-    <div className="min-h-screen w-full">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-950/30 to-gray-900 w-full">
+      <div className="flex justify-end mb-4 gap-2">
+        <button
+          onClick={() => setViewMode('grid')}
+          className={`p-2 rounded ${viewMode === 'grid' ? 'bg-blue-500' : 'bg-gray-700'}`}
+        >
+          <Grid size={20} />
+        </button>
+        <button
+          onClick={() => setViewMode('list')}
+          className={`p-2 rounded ${viewMode === 'list' ? 'bg-blue-500' : 'bg-gray-700'}`}
+        >
+          <List size={20} />
+        </button>
+      </div>
+
       
       <div className="fixed top-0 left-0 right-0 z-10 bg-white/10 backdrop-blur-md">
         <TopBar 
