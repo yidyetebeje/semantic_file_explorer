@@ -1,27 +1,63 @@
 import FileIcon from './FileIcon';
+import { convertFileSrc } from "@tauri-apps/api/core";
+import { useState, useEffect } from 'react';
 
 interface FileItemProps {
   name: string;
   type: string;
-  size: number; 
+  size: number;
+  thumbnail_path?: string | null;
 }
 
-const FileItem = ({ name, type, size }: FileItemProps) => {
+const FileItem = ({ name, type, size, thumbnail_path }: FileItemProps) => {
+  const [assetUrl, setAssetUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (thumbnail_path) {
+      try {
+        const url = convertFileSrc(thumbnail_path);
+        setAssetUrl(url);
+      } catch (error) {
+        console.error("Error converting thumbnail path:", thumbnail_path, error);
+        setAssetUrl(null);
+      }
+    } else {
+      setAssetUrl(null);
+    }
+  }, [thumbnail_path]);
+
+  const iconSize = size;
+  const fontSize = Math.max(10, size * 0.15);
+
   return (
-    <div className="relative cursor-pointer group">
-      <div className="flex flex-col items-center justify-center p-1 rounded-md group-hover:bg-white/10 transition-all">
-        <div className="relative">
-          <FileIcon type={type} size={size} /> {/* Use size prop for icon size */}
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 rounded-lg transition-colors" />
-        </div>
-        {/* File Name */}
-        <p
-          className="text-sm text-gray-300 group-hover:text-white group-hover:font-bold text-center truncate mt-1"
-          style={{ fontSize: `${size * 0.2}px` }} // Dynamic font size
-        >
-          {name}
-        </p>
+    <div className="relative cursor-pointer group flex flex-col items-center text-center">
+      <div 
+        className="relative flex items-center justify-center rounded-md group-hover:bg-white/10 transition-all mb-1 overflow-hidden" 
+        style={{ width: `${iconSize}px`, height: `${iconSize}px` }}
+      >
+        {assetUrl ? (
+          <img 
+            src={assetUrl} 
+            alt={name} 
+            className="object-cover w-full h-full"
+            loading="lazy"
+          />
+        ) : (
+          <FileIcon 
+            type={type} 
+            size={iconSize * 0.6}
+            isDirectory={false} 
+          />
+        )}
       </div>
+      
+      <p
+        className="text-sm text-gray-300 group-hover:text-white group-hover:font-bold text-center truncate w-full"
+        style={{ fontSize: `${fontSize}px` }}
+        title={name}
+      >
+        {name}
+      </p>
     </div>
   );
 };

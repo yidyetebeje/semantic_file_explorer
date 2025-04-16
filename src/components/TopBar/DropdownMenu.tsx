@@ -1,10 +1,9 @@
-
+import { useAtom } from 'jotai';
+import { fileSizeAtom, gapSizeAtom } from '../../store/atoms';
 
 interface DropdownMenuProps {
   showDropdown: boolean;
   dropdownRef: React.RefObject<HTMLDivElement>;
-  fileSize: number;
-  gapSize: number;
   handleSizeChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleGapChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
@@ -12,11 +11,12 @@ interface DropdownMenuProps {
 const DropdownMenu = ({
   showDropdown,
   dropdownRef,
-  fileSize,
-  gapSize,
   handleSizeChange,
   handleGapChange,
 }: DropdownMenuProps) => {
+  const [fileSize] = useAtom(fileSizeAtom);
+  const [gapSize] = useAtom(gapSizeAtom);
+
   return (
     <>
       {showDropdown && (

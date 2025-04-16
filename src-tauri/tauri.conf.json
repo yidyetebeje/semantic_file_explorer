@@ -18,7 +18,18 @@
       }
     ],
     "security": {
-      "csp": null
+      "csp": null,
+      "assetProtocol": {
+        "enable": true,
+        "scope": [
+          "$APPCACHE/thumbnails/*"
+        ]
+      }
+    }
+  },
+  "plugins": {
+    "fs": {
+      "scope": ["$APPDATA/*"]
     }
   },
   "bundle": {
