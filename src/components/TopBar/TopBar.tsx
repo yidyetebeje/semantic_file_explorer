@@ -1,17 +1,19 @@
 import { useState, FC, useRef, useEffect } from 'react';
 
+import { ViewMode } from '../../types/file';
 import NavigationIcons from './NavigationIcons';
 import ViewModeButtons from './ViewModeButtons';
 import RightSectionIcons from './RightSectionIcons';
 import DropdownMenu from './DropdownMenu';
 
 interface TopBarProps {
-  viewMode: 'grid' | 'list';
-  onViewModeChange: (mode: 'grid' | 'list') => void;
+  viewMode: ViewMode;
+  onViewModeChange: (mode: ViewMode) => void;
   onSizeChange: (size: number) => void;
   onGapChange: (gap: number) => void;
   onInspectorToggle: () => void;
   isInspectorActive: boolean;
+  currentPath: string;
 }
 
 const TopBar: FC<TopBarProps> = ({
@@ -21,11 +23,9 @@ const TopBar: FC<TopBarProps> = ({
   onGapChange,
   onInspectorToggle,
   isInspectorActive,
+  currentPath,
 }) => {
-  const [url, setUrl] = useState<string>('C:\\Users\\User');
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
-  const [fileSize, setFileSize] = useState<number>(80);
-  const [gapSize, setGapSize] = useState<number>(4);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -47,13 +47,11 @@ const TopBar: FC<TopBarProps> = ({
 
   const handleSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newSize = parseInt(e.target.value);
-    setFileSize(newSize);
     onSizeChange(newSize);
   };
 
   const handleGapChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newGap = parseInt(e.target.value);
-    setGapSize(newGap);
     onGapChange(newGap);
   };
 
@@ -63,10 +61,9 @@ const TopBar: FC<TopBarProps> = ({
       <div className="flex items-center flex-grow mx-2">
         <input
           type="text"
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-          className="bg-gray-700 text-gray-300 rounded-md p-1 focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs"
-          style={{ width: '140px' }}
+          value={currentPath}
+          readOnly
+          className="bg-gray-700 text-gray-300 rounded-md p-1 focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs flex-grow min-w-0"
         />
       </div>
       <ViewModeButtons viewMode={viewMode} onViewModeChange={onViewModeChange} />
@@ -80,8 +77,6 @@ const TopBar: FC<TopBarProps> = ({
       <DropdownMenu
         showDropdown={showDropdown}
         dropdownRef={dropdownRef}
-        fileSize={fileSize}
-        gapSize={gapSize}
         handleSizeChange={handleSizeChange}
         handleGapChange={handleGapChange}
       />
